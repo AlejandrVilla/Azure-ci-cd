@@ -84,14 +84,14 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform plan
-        run: terraform plan -out main.tfplan
+      # - name: Terraform plan
+      #   run: terraform plan -out main.tfplan
 
       - name: Terraform Apply
-        run: terraform apply main.tfplan -auto-approve
+        run: terraform apply -auto-approve
       
       - name: Terraform Destroy
-        run: terraform destroy main.destroy.tfplan -auto-approve
+        run: terraform destroy -auto-approve
 
   # destroy_infra:
   #   name: Destroy Infraestructure
