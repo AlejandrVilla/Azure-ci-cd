@@ -8,7 +8,7 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    
+
     env:
       export ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       export ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -19,11 +19,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Azure login
-      #   run: az login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      # - name: Azure login
+      # #   run: az login
+      #   uses: azure/login@v1
+      #   with:
+      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
       
       - name: Azure CLI script
         uses: azure/CLI@v1
