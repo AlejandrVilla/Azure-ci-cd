@@ -11,20 +11,20 @@ permissions:
       contents: read
 
 jobs:
-  deploy_infra:
-    name: Deploy Infrastructure
-    runs-on: ubuntu-latest
+  # deploy_infra:
+  #   name: Deploy Infrastructure
+  #   runs-on: ubuntu-latest
     # env:
     #   export ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
     #   export ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
     #   export ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
     #   export ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBCRIPTION_ID }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    # steps:
+    #   - name: Checkout repository
+    #     uses: actions/checkout@v2
 
-      - name: Azure login
-        run: az login
+    #   - name: Azure login
+    #     run: az login
   
         # run:  az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
         
@@ -37,6 +37,38 @@ jobs:
         # with:
         #   creds: ${{ secrets.AZURE_CREDENTIALS }}
       
+      # - name: Azure CLI script
+      #   uses: azure/CLI@v1
+      #   with:
+      #     azcliversion: latest
+      #     inlineScript: |
+      #       az account show
+
+      #   # Terraform
+      # - name: Set up Terraform
+      #   uses: hashicorp/setup-terraform@v1
+      #   with:
+      #     terraform_version: 0.15.0
+
+      # - name: Terraform Init
+      #   run: terraform init
+
+      # - name: Terraform Apply
+      #   run: terraform apply -auto-approve
+      
+      # - name: Terraform Destroy
+      #   run: terraform destroy -auto-approve
+
+  manage_secrets:
+    name: Manage Secrets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Azure login
+         run: az login
+        
       - name: Azure CLI script
         uses: azure/CLI@v1
         with:
@@ -44,22 +76,22 @@ jobs:
           inlineScript: |
             az account show
 
-        # Terraform
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 0.15.0
+          terraform_version: 1.0.0
 
       - name: Terraform Init
         run: terraform init
 
+      - name: Terraform plan
+        run: terraform plan -out main.tfplan
+
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply main.tfplan -auto-approve
       
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve
-
-  # manage_secrets:
+        run: terraform destroy main.destroy.tfplan -auto-approve
 
   # destroy_infra:
   #   name: Destroy Infraestructure
