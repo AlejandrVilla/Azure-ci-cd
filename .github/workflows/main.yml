@@ -59,39 +59,39 @@ jobs:
       # - name: Terraform Destroy
       #   run: terraform destroy -auto-approve
 
-  manage_secrets:
-    name: Manage Secrets
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+  # manage_secrets:
+  #   name: Manage Secrets
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v2
 
-      - name: Azure login
-        run: az login
+  #     - name: Azure login
+  #       run: az login
         
-      - name: Azure CLI script
-        uses: azure/CLI@v1
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az account show
+  #     - name: Azure CLI script
+  #       uses: azure/CLI@v1
+  #       with:
+  #         azcliversion: latest
+  #         inlineScript: |
+  #           az account show
 
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.0.0
+  #     - name: Set up Terraform
+  #       uses: hashicorp/setup-terraform@v1
+  #       with:
+  #         terraform_version: 1.0.0
 
-      - name: Terraform Init
-        run: terraform init
+  #     - name: Terraform Init
+  #       run: terraform init
 
-      # - name: Terraform plan
-      #   run: terraform plan -out main.tfplan
+  #     # - name: Terraform plan
+  #     #   run: terraform plan -out main.tfplan
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+  #     - name: Terraform Apply
+  #       run: terraform apply -auto-approve
       
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+  #     - name: Terraform Destroy
+  #       run: terraform destroy -auto-approve
 
   # destroy_infra:
   #   name: Destroy Infraestructure
@@ -116,25 +116,25 @@ jobs:
   #     - name: Terraform Destroy
   #       run: terraform destroy -auto-approve
 
-  - job: generate_plan_output
-  # Terraform Plan configuration
-  - job: manual_approval
-    displayName: User validation
-    dependsOn: generate_plan_output
-    condition: succeeded('generate_plan_output')
-    timeoutInMinutes: 360
-    pool: server
-    steps:
-      - task: ManualValidation@0
-        displayName: 'User validation'
-        timeoutInMinutes: 60
-        inputs:
-          notifyUsers: # email input
-          instructions: 'Please review the Terraform Output. Evaluate the changes and resume if all is good!'
-          onTimeout: 'reject'
-  - deployment: provision_terraform
-    dependsOn:
-    - generate_plan_output
-    - manual_approval
-    # Terraform Apply configuration
+    job: generate_plan_output
+    # Terraform Plan configuration
+    job: manual_approval
+      displayName: User validation
+      dependsOn: generate_plan_output
+      condition: succeeded('generate_plan_output')
+      timeoutInMinutes: 360
+      pool: server
+      steps:
+        - task: ManualValidation@0
+          displayName: 'User validation'
+          timeoutInMinutes: 60
+          inputs:
+            notifyUsers: # email input
+            instructions: 'Please review the Terraform Output. Evaluate the changes and resume if all is good!'
+            onTimeout: 'reject'
+    - deployment: provision_terraform
+      dependsOn:
+      - generate_plan_output
+      - manual_approval
+      # Terraform Apply configuration
       
