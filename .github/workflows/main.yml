@@ -42,21 +42,7 @@ jobs:
         run: terraform init
 
       - name: Terraform Apply
-        run: terraform apply
-
-      # aks kubeconfig
-      # - name: Set up kubectl
-      #   run: cp k8s/config ~/.kube/config
-
-      # deploy to aks
-      # - name: Deploy to AKS
-      #   run: |
-      #     kubectl apply -f k8s/deployment.yaml
-      #     kubectl apply -f k8s/service.yaml
-
-      # # get pods
-      # - name: Validate Deployment
-      #   run: kubectl get pods
+        run: terraform apply -auto-approve
 
       # - name: Terraform Destroy
       #   run: terraform destroy -auto-approve
