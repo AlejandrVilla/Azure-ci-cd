@@ -36,7 +36,7 @@ jobs:
         run: terraform init
 
       - name: Terraform Apply
-        run: terraform apply2
+        run: terraform apply
 
       # aks kubeconfig
       # - name: Set up kubectl
