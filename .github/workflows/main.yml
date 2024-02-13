@@ -56,14 +56,14 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Manual Approval
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: 'Terraform destroy approved.'
-          branch: ${{ github.ref }}
-          commit_user_name: ${{ github.actor }}
-          commit_user_email: ${{ github.actor }}@users.noreply.github.com
-          commit_author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+      # - name: Manual Approval
+      #   uses: stefanzweifel/git-auto-commit-action@v4
+      #   with:
+      #     commit_message: 'Terraform destroy approved.'
+      #     branch: ${{ github.ref }}
+      #     commit_user_name: ${{ github.actor }}
+      #     commit_user_email: ${{ github.actor }}@users.noreply.github.com
+      #     commit_author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
 
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
