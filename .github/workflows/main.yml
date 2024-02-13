@@ -65,6 +65,12 @@ jobs:
       #     commit_user_email: ${{ github.actor }}@users.noreply.github.com
       #     commit_author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
 
+      # Download saved plan from artifacts  
+      - name: Download Terraform Plan
+        uses: actions/download-artifact@v3
+        with:
+          name: tfplan
+      
       - name: Terraform Destroy
         run: terraform destroy -auto-approve tfplan
 
