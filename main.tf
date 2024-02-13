@@ -10,7 +10,7 @@ variable "RG_name"{
   default = "avhrg2"
 }
 
-# # Virtual Machine
+# Virtual Machine
 
 resource "azurerm_virtual_network" "main" {
   name                = "${var.prefix}-network"
@@ -76,7 +76,7 @@ resource "azurerm_virtual_machine" "main" {
   }
 }
 
-# # key vault
+# key vault
 resource "random_pet" "rg_name" {
   prefix = var.resource_group_name_prefix
 }
