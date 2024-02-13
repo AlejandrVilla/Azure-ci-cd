@@ -75,7 +75,7 @@ jobs:
           name: tfDestroyPlan
       
       - name: Terraform Destroy
-        run: terraform aply -auto-approve tfDestroyPlan
+        run: terraform apply -auto-approve tfDestroyPlan
 
 # name: Terraform Workflow
 
