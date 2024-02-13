@@ -66,7 +66,7 @@ jobs:
       #     commit_author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
 
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+        run: terraform destroy -auto-approve tfplan
 
 # name: Terraform Workflow
 
