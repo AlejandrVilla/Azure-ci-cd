@@ -29,6 +29,9 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -out=tfplan
 
+      - name: Check Drift
+        run: echo "::set-output name=drift_detected::$(grep 'No changes' tfplan | wc -l)"
+
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
 
@@ -58,15 +61,6 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-
-      # - name: Manual Approval
-      #   uses: stefanzweifel/git-auto-commit-action@v4
-      #   with:
-      #     commit_message: 'Terraform destroy approved.'
-      #     branch: ${{ github.ref }}
-      #     commit_user_name: ${{ github.actor }}
-      #     commit_user_email: ${{ github.actor }}@users.noreply.github.com
-      #     commit_author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
 
       # Download saved plan from artifacts  
       - name: Download Terraform Plan
