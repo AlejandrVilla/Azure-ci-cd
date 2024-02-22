@@ -7,7 +7,7 @@ variable "location"{
 }
 
 variable "RG_name"{
-  default = "avhrg2"
+  default = "avh-rg2"
 }
 
 # Virtual Machine
